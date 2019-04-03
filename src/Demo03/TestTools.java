@@ -1,12 +1,13 @@
-package Demo01;
-
+package Demo03;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class TsestTools {
+
+//Bean的三种实例化
+public class TestTools {
     public static void main(String[] args) {
         ApplicationContext context=new ClassPathXmlApplicationContext("bean.xml");
         User user= (User) context.getBean("user");
-        user.add();
+        user.test();
     }
 }
