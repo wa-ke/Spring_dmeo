@@ -45,5 +45,44 @@ scope : Bean的作用范围
     </bean>
 
     <!--p名称空间-->
-    <bean id="user" class="Demo03.User" p:username="lucy"></bean>
+    <!--复杂属性注入-->
+    <bean id="user" class="Demo03.User" p:username="lucy">
+        <!--数组-->
+        <property name="arr">
+            <list>
+                <value>1</value>
+                <value>2</value>
+                <value>3</value>
+            </list>
+        </property>
+        <!--list-->
+        <property name="list">
+            <list>
+                <value>1</value>
+                <value>2</value>
+                <value>3</value>
+            </list>
+        </property>
+        <!--map-->
+        <property name="map">
+            <map>
+                <entry key="1" value="mary"></entry>
+                <entry key="2" value="jon"></entry>
+                <entry key="3" value="lucy"></entry>
+            </map>
+        </property>
+        <!--properties-->
+        <property name="properties">
+            <props>
+                <prop key="a">A</prop>
+                <prop key="b">B</prop>
+                <prop key="c">C</prop>
+            </props>
+        </property>
+    </bean>
+
+
+
+
+
 </beans>
