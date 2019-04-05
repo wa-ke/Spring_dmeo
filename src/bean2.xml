@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop" xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+     <bean id="car" class="Demo06.Car"></bean>
+     <bean id="carFactory" class="Demo06.CarFactory"></bean>
+
+    <!--使用表达式配置切入点-->
+    <!--execution(* Demo.*(..))-->
+    <aop:config>
+        <!--配置切入点  被增强方法-->
+        <aop:pointcut id="pointcat" expression="execution(* Demo06.*.*(..))"></aop:pointcut>
+        <!--配置切面 增强方法-->
+        <aop:aspect id="" ref="carFactory">
+            <aop:before method="before" pointcut-ref="pointcat"></aop:before>
+            <aop:after-returning method="after" pointcut-ref="pointcat"></aop:after-returning>
+            <aop:around method="around" pointcut-ref="pointcat"></aop:around>
+        </aop:aspect>
+    </aop:config>
+
+</beans>

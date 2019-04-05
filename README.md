@@ -64,7 +64,7 @@
             混合使用：
             1.创建对象用配置文件
             2.注入属性用注解
-* Demo06 :AOP操作
+* Demo06 :AOP操作 Aspectj
 
                     术语:
                     joinpoint(连接点)：类里面哪些方法可以被增强，这些方法称为连接点 
@@ -82,5 +82,19 @@
                     Introduction（引介）：要增强的类
                     weaving(织入)是把增强应用到目标的过程，把advice应用到target的过程。
                     proxy（代理）：一个类被aop织入增强后，就产生一个结果代理类。
+                    
+                    AspectJ配置:
+                    <!--使用表达式配置切入点-->
+                        <!--execution(* Demo.*(..))-->
+                        <aop:config>
+                            <!--配置切入点  被增强方法-->
+                            <aop:pointcut id="pointcat" expression="execution(* Demo06.*.*(..))"></aop:pointcut>
+                            <!--配置切面 增强方法-->
+                            <aop:aspect id="" ref="carFactory">
+                                <aop:before method="before" pointcut-ref="pointcat"></aop:before>
+                                <aop:after-returning method="after" pointcut-ref="pointcat"></aop:after-returning>
+                                <aop:around method="around" pointcut-ref="pointcat"></aop:around>
+                            </aop:aspect>
+                        </aop:config>
              
                            
