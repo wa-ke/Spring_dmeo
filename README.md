@@ -97,4 +97,57 @@
                             </aop:aspect>
                         </aop:config>
              
-                           
+* Demo07 : JDBCTemplate操作
+
+                //设置数据库信息
+                        DriverManagerDataSource driverManagerDataSource=new DriverManagerDataSource();
+                        driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
+                        driverManagerDataSource.setUrl("jdbc:mysql:///spring");
+                        driverManagerDataSource.setUsername("root");
+                        driverManagerDataSource.setPassword("root");
+                //创建模板对象
+                        JdbcTemplate jdbcTemplate =new JdbcTemplate(driverManagerDataSource);
+                //常用操作方法
+                update() , query(),queryForObject();
+* Demo08 : c3p0连接池及事务管理
+
+             //c3p0配置数据库，代码操作
+                    ComboPooledDataSource dataSource=new ComboPooledDataSource();
+                    dataSource.setDriverClass("com.mysql.jdbc.Driver");
+                    dataSource.setUser("root");
+                    dataSource.setJdbcUrl("jdbc:mysql:///spring");
+                    dataSource.setPassword("root");
+             <!--配置c3p0连接池 spring配置操作（常用）-->
+             <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+                 <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+                 <property name="jdbcUrl" value="jdbc:mysql:///spring"></property>
+                 <property name="user" value="root"></property>
+                 <property name="password" value="root"></property>
+             </bean>
+             
+             事务配置：
+                 <!-- 第一步 配置事务管理器 -->
+                 <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+                     <!--注入dataSource-->
+                     <property name="dataSource" ref="dataSource"></property>
+                 </bean>
+             
+                 <!--&lt;!&ndash; 第二步 配置事务增强 &ndash;&gt;-->
+                 <!--<tx:advice id="tx" transaction-manager="transactionManager">-->
+                     <!--&lt;!&ndash; 做事务操作 &ndash;&gt;-->
+                     <!--<tx:attributes>-->
+                         <!--&lt;!&ndash; 设置进行事务操作的方法匹配规则  &ndash;&gt;-->
+                         <!--<tx:method name="accountMoney" propagation="REQUIRED"/>-->
+                     <!--</tx:attributes>-->
+                 <!--</tx:advice>-->
+                 <!--&lt;!&ndash; 第三步 配置切面 &ndash;&gt;-->
+                 <!--<aop:config>-->
+                     <!--<aop:pointcut id="pointcut1" expression="execution(* Demo08.UserService.*(..))"></aop:pointcut>-->
+                     <!--<aop:advisor advice-ref="tx" pointcut-ref="pointcut1"></aop:advisor>-->
+                 <!--</aop:config>-->
+             
+                 <!--事务注解开启-->
+             <tx:annotation-driven transaction-manager="transactionManager"></tx:annotation-driven>
+             
+             注意！！！ ：spring的事务管理数据库表的引擎要求不能是myisam，该引擎不支持事务管理，使用innodb
+                      

@@ -1,6 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd">
+<!--配置c3p0连接池-->
+<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+    <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+    <property name="jdbcUrl" value="jdbc:mysql:///spring"></property>
+    <property name="user" value="root"></property>
+    <property name="password" value="root"></property>
+</bean>
+    <!-- 第一步 配置事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!--注入dataSource-->
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <!--&lt;!&ndash; 第二步 配置事务增强 &ndash;&gt;-->
+    <!--<tx:advice id="tx" transaction-manager="transactionManager">-->
+        <!--&lt;!&ndash; 做事务操作 &ndash;&gt;-->
+        <!--<tx:attributes>-->
+            <!--&lt;!&ndash; 设置进行事务操作的方法匹配规则  &ndash;&gt;-->
+            <!--<tx:method name="accountMoney" propagation="REQUIRED"/>-->
+        <!--</tx:attributes>-->
+    <!--</tx:advice>-->
+    <!--&lt;!&ndash; 第三步 配置切面 &ndash;&gt;-->
+    <!--<aop:config>-->
+        <!--<aop:pointcut id="pointcut1" expression="execution(* Demo08.UserService.*(..))"></aop:pointcut>-->
+        <!--<aop:advisor advice-ref="tx" pointcut-ref="pointcut1"></aop:advisor>-->
+    <!--</aop:config>-->
+
+    <!--事务注解开启-->
+<tx:annotation-driven transaction-manager="transactionManager"></tx:annotation-driven>
+
+
+    <bean id="userDao1" class="Demo08.UserDao">
+        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+    </bean>
+
+    <bean class="Demo08.UserService" id="userService">
+        <!--注入dao对象-->
+        <property name="userDao" ref="userDao1"></property>
+    </bean>
+    <!--创建jdbc模板对象-->
+    <bean class="org.springframework.jdbc.core.JdbcTemplate" id="jdbcTemplate">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
 
 </beans>

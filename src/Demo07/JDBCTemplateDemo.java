@@ -39,7 +39,7 @@ public class JDBCTemplateDemo {
 //        int cout=jdbcTemplate.queryForObject(sql,Integer.class);
 //        System.out.println(cout);
 
-        //查询返回对象
+        //查询返回对象,自己做属性封装到RowMapperDemo实现接口RowMapper<User>
 //        String sql="select * from user where name= ?";
 //        User user=jdbcTemplate.queryForObject(sql,new RowMapperDemo(),"mary");
 //        System.out.println(user);
