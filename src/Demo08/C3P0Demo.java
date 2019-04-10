@@ -1,6 +1,5 @@
 package Demo08;
 
-import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -15,7 +14,7 @@ public class C3P0Demo {
 //        dataSource.setJdbcUrl("jdbc:mysql:///spring");
 //        dataSource.setPassword("root");
 
-        ApplicationContext context=new ClassPathXmlApplicationContext("bean3.xml");
+        ApplicationContext context=new ClassPathXmlApplicationContext("bean/bean3.xml");
         UserService userService= (UserService) context.getBean("userService");
         userService.accountMoney();
     }

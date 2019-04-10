@@ -150,4 +150,7 @@
              <tx:annotation-driven transaction-manager="transactionManager"></tx:annotation-driven>
              
              注意！！！ ：spring的事务管理数据库表的引擎要求不能是myisam，该引擎不支持事务管理，使用innodb
-                      
+             
+* SSHDemo01 :  spring4+hibernate5+struts2整合开发
+
+                                 

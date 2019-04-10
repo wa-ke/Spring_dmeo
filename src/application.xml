@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd">
+    <!--配置c3p0连接池-->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+        <property name="jdbcUrl" value="jdbc:mysql:///spring"></property>
+        <property name="user" value="root"></property>
+        <property name="password" value="root"></property>
+    </bean>
+<!--创建action对象-->
+    <bean class="SSHDemo01.UserAction" scope="prototype" id="userAction">
+        <property name="userService" ref="userService2"></property>
+    </bean>
+<!--创建sessionFactory-->
+    <bean class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" id="sessionFactory">
+        <!--引用c3p0连接池-->
+        <property name="dataSource" ref="dataSource"></property>
+        <!--指定hibernate核心文件-->
+        <property name="configLocation" value="classpath:hibernate.cfg.xml"></property>
+    </bean>
+
+    <!--配置事务-->
+    <bean class="org.springframework.orm.hibernate5.HibernateTransactionManager" id="transactionManager2">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <tx:annotation-driven transaction-manager="transactionManager2"></tx:annotation-driven>
+
+    <!--创建service对象-->
+    <bean class="SSHDemo01.UserService" id="userService2">
+        <property name="userDao" ref="userDao2"></property>
+    </bean>
+<!--创建实现类对象-->
+    <bean class="SSHDemo01.UserDaoImpl" id="userDao2">
+        <property name="hibernateTemplate" ref="hibernateTemplate"></property>
+    </bean>
+
+    <!--创建hibernate模板对象-->
+    <bean class="org.springframework.orm.hibernate5.HibernateTemplate" id="hibernateTemplate">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+</beans>

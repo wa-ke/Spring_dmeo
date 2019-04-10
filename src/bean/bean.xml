@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--实例化的三种方式-->
+    <!--默认调用无参构造创建对象-->
+    <!--<bean id="user" class="Demo01.User"></bean>-->
+
+    <!--静态工厂创建对象-->
+    <!--<bean id="user" class="Demo02.UserFactory" factory-method="getUser"></bean>-->
+
+    <!--实例工厂创建对象-->
+<!--<bean id="userFactory" class="Demo02.UserFactory"></bean>-->
+    <!--<bean id="user" factory-bean="userFactory" factory-method="getUser"></bean>-->
+
+<!--属性标签
+id :
+name :可以包含特殊符号
+class:类路径
+scope : Bean的作用范围
+-->
+    <!--scope：singleton/prototype/request/session/globalSession
+               默认，单实例/多实例/将对象存入request域/存入session域/存入globalSession域/
+    -->
+    <!--<bean id="user" class="Demo02.User"></bean>-->
+
+<!--属性注入-->
+    <!--有参构造注入-->
+    <!--<bean id="user" class="Demo03.User" >-->
+        <!--<constructor-arg name="username" value="有参构造"/>-->
+    <!--</bean>-->
+
+    <!--set方法注入-->
+    <!--<bean id="user" class="Demo03.User">-->
+        <!--<property name="username" value="set方法">-->
+        <!--</property>-->
+    <!--</bean>-->
+
+<!--对象注入-->
+    <bean id="userDao" class="Demo04.UserDAO"></bean>
+    <bean id="userService" class="Demo04.UserService" p:userDAO-ref="userDao">
+        <!--name : service里的属性名称 -->
+        <!--<property name="userDAO" ref="userDao"></property>-->
+    </bean>
+
+    <!--p名称空间-->
+    <!--复杂属性注入-->
+    <bean id="user" class="Demo03.User" p:username="lucy">
+        <!--数组-->
+        <property name="arr">
+            <list>
+                <value>1</value>
+                <value>2</value>
+                <value>3</value>
+            </list>
+        </property>
+        <!--list-->
+        <property name="list">
+            <list>
+                <value>1</value>
+                <value>2</value>
+                <value>3</value>
+            </list>
+        </property>
+        <!--map-->
+        <property name="map">
+            <map>
+                <entry key="1" value="mary"></entry>
+                <entry key="2" value="jon"></entry>
+                <entry key="3" value="lucy"></entry>
+            </map>
+        </property>
+        <!--properties-->
+        <property name="properties">
+            <props>
+                <prop key="a">A</prop>
+                <prop key="b">B</prop>
+                <prop key="c">C</prop>
+            </props>
+        </property>
+    </bean>
+
+
+
+
+
+</beans>

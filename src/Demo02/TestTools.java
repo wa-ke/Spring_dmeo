@@ -6,7 +6,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 //Bean的三种实例化
 public class TestTools {
     public static void main(String[] args) {
-        ApplicationContext context=new ClassPathXmlApplicationContext("bean.xml");
+        ApplicationContext context=new ClassPathXmlApplicationContext("bean/bean.xml");
         User user= (User) context.getBean("user");
         User user1= (User) context.getBean("user");
         System.out.println(user+"::" + user1);
