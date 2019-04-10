@@ -1,8 +1,8 @@
 package Demo04;
 
 public class UserService {
-    private UserDAO userDAO;
 
+    private UserDAO userDAO;
     public void setUserDAO(UserDAO userDAO) {
         this.userDAO = userDAO;
     }

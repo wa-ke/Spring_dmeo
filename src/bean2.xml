@@ -11,15 +11,18 @@
 
     <!--使用表达式配置切入点-->
     <!--execution(* Demo.*(..))-->
-    <aop:config>
-        <!--配置切入点  被增强方法-->
-        <aop:pointcut id="pointcat" expression="execution(* Demo06.*.*(..))"></aop:pointcut>
-        <!--配置切面 增强方法-->
-        <aop:aspect id="" ref="carFactory">
-            <aop:before method="before" pointcut-ref="pointcat"></aop:before>
-            <aop:after-returning method="after" pointcut-ref="pointcat"></aop:after-returning>
-            <aop:around method="around" pointcut-ref="pointcat"></aop:around>
-        </aop:aspect>
-    </aop:config>
+    <!--<aop:config>-->
+        <!--&lt;!&ndash;配置切入点  被增强方法&ndash;&gt;-->
+        <!--<aop:pointcut id="pointcat" expression="execution(* Demo06.*.*(..))"></aop:pointcut>-->
+        <!--&lt;!&ndash;配置切面 增强方法&ndash;&gt;-->
+        <!--<aop:aspect id="" ref="carFactory">-->
+            <!--<aop:before method="before" pointcut-ref="pointcat"></aop:before>-->
+            <!--<aop:after-returning method="after" pointcut-ref="pointcat"></aop:after-returning>-->
+            <!--<aop:around method="around" pointcut-ref="pointcat"></aop:around>-->
+        <!--</aop:aspect>-->
+    <!--</aop:config>-->
+
+    <!--开启AOP注解扫描-->
+    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 
 </beans>
