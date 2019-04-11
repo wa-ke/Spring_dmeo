@@ -153,4 +153,29 @@
              
 * SSHDemo01 :  spring4+hibernate5+struts2整合开发
 
+            spring配置hibernate：
+             <bean class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" id="sessionFactory">
+                    <!--引用c3p0连接池-->
+                    <property name="dataSource" ref="dataSource"></property>
+                    <!--指定hibernate核心文件-->
+                    <!--<property name="configLocation" value="classpath:hibernate.cfg.xml"></property>-->
+            
+                    <!--不使用hibernate核心配置文件-->
+                    <property name="hibernateProperties">
+                        <props>
+                            <prop key="hibernate.show_sql">true</prop>
+                            <prop key="hibernate.format_sql">true</prop>
+                            <prop key="hibernate.hbm2ddl.auto">update</prop>
+                            <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+                        </props>
+                    </property>
+            <property name="mappingResources">
+                <list>
+                    <value>SSHDemo01/User.hbm.xml</value>
+                </list>
+            </property>
+                </bean>
+
+           
+
                                  

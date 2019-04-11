@@ -1,6 +1,7 @@
 package SSHDemo01;
 
 
+import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 
 import java.util.List;
@@ -24,17 +25,19 @@ public class UserDaoImpl implements UserDao {
         User user= hibernateTemplate.get(User.class,1);
         System.out.println(user.getUsername());
 
-        //find方法
+        //find方法,封装HQL
         List<User> list= (List<User>) hibernateTemplate.find("from User");
         for (User user1 : list) {
             System.out.println(user.getUsername());
         }
 
         //find条件查询
-        List<User> list1= (List<User>) hibernateTemplate.find("from User where username=?","mary");
+        List<User> list1= (List<User>) hibernateTemplate
+                .find("from User where username=?", "mary");
         for (User user1 : list1) {
             System.out.println(user1.getPassword());
         }
+
 
 
     }

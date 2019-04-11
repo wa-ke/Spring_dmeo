@@ -21,6 +21,7 @@
           <file>file://$MODULE_DIR$/src/bean3.xml</file>
           <file>file://$MODULE_DIR$/src/bean4.xml</file>
           <file>file://$MODULE_DIR$/src/application.xml</file>
+          <file>file://$MODULE_DIR$/src/bean/bean.xml</file>
         </fileset>
       </configuration>
     </facet>
